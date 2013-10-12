@@ -9,8 +9,6 @@ package
 	
 	public class Player extends Entity
 	{	
-		private var canPlace:Boolean = true;
-		
 		public function Player() 
 		{
 			// Setup collisions
@@ -18,19 +16,25 @@ package
 			type = "player";
 			layer = -10;
 		}
+		
+		//Tower vars to handle placement
+		private var tower:Tower;
+		private var canPlace:Boolean = true;
+		
 		override public function update():void
 		{
-			// CHange the position to the mouse position
+			// Change the position to the mouse position
 			x = Input.mouseX;
 			y = Input.mouseY;
 			
 			// Allow the player to place towers if not colliding with path
-			canPlace = !collide("path", x, y);
+			canPlace = !collide("path", x, y) && !collide("base", x, y);
 			
 			// Place towers
 			if ((Input.mousePressed) && (canPlace))
 			{
-				FP.world.add(new Tower(x, y, Tower.SPIKE));
+				tower = new Tower(x, y, Tower.SPIKE);
+				FP.world.add(tower);
 			}
 		}
 		

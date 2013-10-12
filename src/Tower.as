@@ -29,6 +29,7 @@ package
 		override public function added():void
 		{
 			// TODO: Add "tower base" for collision with Player
+			FP.world.add(new TowerBase(this.x , this.y));
 		}
 		
 		override public function update():void
