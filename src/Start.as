@@ -27,7 +27,7 @@ package
 			Draw.rect(x, y, 32, 32, 0x111111);
 		}
 		
-		private function GenerateEnemies(time:uint , numberOfEnemies:uint):void 
+		private function GenerateEnemies(timeElapsed:uint , numberOfEnemies:uint):void 
 		{
 			//Set counter to elapsed time
 			counter += FP.elapsed;
@@ -36,7 +36,7 @@ package
 			if (create)
 			{
 				//Check for each assigned seconds of elapsed time
-				if (counter > time)
+				if (counter > timeElapsed)
 				{
 					//If start number is greater than enemy numbers we need then stop
 					if (start >= numberOfEnemies)
