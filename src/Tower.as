@@ -18,6 +18,8 @@ package
 		{
 			super(X, Y);
 			
+			type = "tower";
+			
 			// Set the type of the tower here
 			// Instead of having classes for each type, there is one class,
 			// and we just have a variable that changes what this object does
@@ -28,7 +30,6 @@ package
 		
 		override public function added():void
 		{
-			// TODO: Add "tower base" for collision with Player
 			FP.world.add(new TowerBase(this.x , this.y));
 		}
 		
@@ -57,10 +58,10 @@ package
 					Draw.circlePlus(x, y, 16, 0xFFFFFF);
 					break;
 				case TYPE2:
-					Draw.circlePlus(x, y, 16, 0xFFFFFF);
+					Draw.circlePlus(x, y, 16, 0xFF831A);
 					break;
 				case TYPE3:
-					Draw.circlePlus(x, y, 16, 0xFFFFFF);
+					Draw.circlePlus(x, y, 16, 0xFF240C);
 					break;
 			}
 		}
@@ -69,6 +70,11 @@ package
 		{
 			// Perform the spike update
 			setHitbox(32, 32, 16, 16);
+		}
+		
+		public function shoot():void
+		{
+			FP.world.add(new Bullet(this.x , this.y, towerType));
 		}
 	}
 }

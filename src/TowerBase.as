@@ -15,12 +15,12 @@ package
 			
 			layer = -2;
 			type = "base";
-			setHitbox(4, 4);
+			setHitbox(12, 12, 6, 6);
 		}
 		
 		override public function render() : void
 		{
-			Draw.circlePlus(x, y, 8 , 0x000000);
+			Draw.circlePlus(x, y, 8, 0x000000);
 		}
 	}
 	

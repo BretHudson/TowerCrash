@@ -38,7 +38,7 @@ package
 			FP.world = new Level();
 			
 			// Enable the debug console
-			//FP.console.enable();	
+			FP.console.enable();
 			
 			// Double the scale of the gradient (to make it fill the screen)
 			gradient.scale = 2;

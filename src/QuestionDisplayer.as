@@ -38,6 +38,8 @@ package
 		private var paddingx:int = 30;
 		private var paddingy:int = 30;
 		
+		private var p:Player;
+		
 		public function QuestionDisplayer() 
 		{
 			layer = -100;
@@ -75,6 +77,12 @@ package
 			
 			// Set the font for each Text object
 			//question.font = 'Savatism';
+		}
+		
+		override public function added():void
+		{
+			p = FP.world.getInstance("player");
+			p.questionUp = true;
 		}
 		
 		override public function update():void
@@ -156,10 +164,17 @@ package
 			addTween(yTween, true);
 		}
 		
+		public function playerEnable():void
+		{
+			p = FP.world.getInstance("player");
+			p.questionUp = false;
+		}
+		
 		public function checkAnswer():void
 		{
 			var alphaTween:VarTween = new VarTween();
 			alphaTween.tween(this, "alpha", 0, 0.6, Ease.backIn);
+			alphaTween.complete = playerEnable;
 			addTween(alphaTween, true);
 			
 			// Slide the box up

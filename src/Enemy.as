@@ -16,8 +16,10 @@ package
 		private const DOWN:int = 3;
 		
 		// The base speed
-		private var speed:int = 1;
+		public var speed:int = 1;
 		private var dir:int = RIGHT;
+		
+		public var health:int = 0;
 		
 		public function Enemy(X:int, Y:int) 
 		{
@@ -102,9 +104,13 @@ package
 			}
 		}
 		
-		override public function render():void
+		public function damage():void
 		{
-			Draw.rect(x, y, 32, 32, 0x00FFFF);
+			health--;
+			if (health <= 0)
+			{
+				FP.world.remove(this);
+			}
 		}
 	}
 }

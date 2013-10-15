@@ -27,7 +27,7 @@ package
 			Draw.rect(x, y, 32, 32, 0x111111);
 		}
 		
-		private function GenerateEnemies(timeElapsed:uint , numberOfEnemies:uint):void 
+		private function GenerateEnemies(timeElapsed:uint , numberOfEnemy1:uint):void 
 		{
 			//Set counter to elapsed time
 			counter += FP.elapsed;
@@ -39,14 +39,14 @@ package
 				if (counter > timeElapsed)
 				{
 					//If start number is greater than enemy numbers we need then stop
-					if (start >= numberOfEnemies)
+					if (start >= numberOfEnemy1)
 					{
 						create = false;
 					}
 					//Else just add a new enemy and increase the start counter to avoid infinite enemies
-					else
+					else if (numberOfEnemy1 > 0)
 					{
-						FP.world.add(new Enemy(-30, y));
+						FP.world.add(new Enemy1(-30, y));
 						start++;
 						counter = 0;
 					}

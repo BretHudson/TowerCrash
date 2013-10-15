@@ -8,12 +8,15 @@ package
 	// THE PLAYER CLASS IS HERE TO HANDLE INPUT THROUGH THE MOUSE
 	
 	public class Player extends Entity
-	{	
+	{
+		// TODO: Add max-y value for player cursor
+		
 		public function Player() 
 		{
 			// Setup collisions
-			setHitbox(20, 20, 10, 10);
+			setHitbox(24, 24, 12, 12);
 			type = "player";
+			name = "player";
 			layer = -10;
 		}
 		
@@ -21,19 +24,22 @@ package
 		private var tower:Tower;
 		private var canPlace:Boolean = true;
 		
+		// If the question forum is up on the screen
+		public var questionUp:Boolean = true;
+		
 		override public function update():void
 		{
 			// Change the position to the mouse position
 			x = Input.mouseX;
 			y = Input.mouseY;
 			
-			// Allow the player to place towers if not colliding with path
+			// Allow the player to place towers if not colliding with path or a tower
 			canPlace = !collide("path", x, y) && !collide("base", x, y);
 			
 			// Place towers
-			if ((Input.mousePressed) && (canPlace))
+			if ((Input.mousePressed) && (canPlace) && (!questionUp) && (HUD.pressedSelection > 0) && (Input.mouseY < HUD.maxY))
 			{
-				tower = new Tower(x, y, Tower.SPIKE);
+				tower = new Tower(x, y, HUD.pressedSelection);
 				FP.world.add(tower);
 			}
 		}
