@@ -35,7 +35,9 @@ package
 			// Create and add the Player to the room
 			add(p = new Player());
 			
-			add(q = new QuestionDisplayer());
+			add(q = new QuestionDisplayer(1));
+			
+			//add(new QuestionChooser());
 		}
 		
 		override public function begin():void
@@ -68,9 +70,6 @@ package
 						break;
 				}
 			}
-			
-			// Generate the first question
-			q.generateQuestion();
 		}
 		
 		override public function update():void

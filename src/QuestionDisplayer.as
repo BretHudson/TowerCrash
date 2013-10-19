@@ -40,7 +40,7 @@ package
 		
 		private var p:Player;
 		
-		public function QuestionDisplayer() 
+		public function QuestionDisplayer(Q:int) 
 		{
 			layer = -100;
 			
@@ -77,6 +77,8 @@ package
 			
 			// Set the font for each Text object
 			//question.font = 'Savatism';
+			
+			generateQuestion(Q);
 		}
 		
 		override public function added():void
@@ -138,20 +140,29 @@ package
 			super.render();
 		}
 		
-		public function generateQuestion():void
+		public function generateQuestion(Q:int):void
 		{
 			// Reset y (for the cool slide effect)
 			y = yOffset;
 			
 			// Select which question it is
-			curQuestion = 0;
+			curQuestion = Q;
 			
 			// Grab the text variables from the Questions class
 			question.text = Questions.questions[curQuestion];
-			answer1.text = Questions.answers[curQuestion * 4 + 0];
-			answer2.text = Questions.answers[curQuestion * 4 + 1];
-			answer3.text = Questions.answers[curQuestion * 4 + 2];
-			answer4.text = Questions.answers[curQuestion * 4 + 3];
+			var j:int = Math.random() * 4 + 4;
+			var k:Number = Math.round(Math.random() * 2 - 1);
+			while (k == 0)
+			{
+				k = Math.round(Math.random() * 2 - 1);
+			}
+			answer1.text = Questions.answers[curQuestion * 4 + j % 4];
+			j += k;
+			answer2.text = Questions.answers[curQuestion * 4 + j % 4];
+			j += k;
+			answer3.text = Questions.answers[curQuestion * 4 + j % 4];
+			j += k;
+			answer4.text = Questions.answers[curQuestion * 4 + j % 4];
 			
 			// Fade in the box
 			var alphaTween:VarTween = new VarTween();
@@ -172,6 +183,8 @@ package
 		
 		public function checkAnswer():void
 		{
+			trace((selAnswer == curAnswer));
+			
 			var alphaTween:VarTween = new VarTween();
 			alphaTween.tween(this, "alpha", 0, 0.6, Ease.backIn);
 			alphaTween.complete = playerEnable;
