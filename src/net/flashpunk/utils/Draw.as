@@ -165,6 +165,51 @@
 		}
 		
 		/**
+		 * Draws a filled triangle.
+		 * @param	x			X position of the rectangle.
+		 * @param	y			Y position of the rectangle.
+		 * @param	width		Width of the rectangle.
+		 * @param	height		Height of the rectangle.
+		 * @param	color		Color of the rectangle.
+		 * @param	alpha		Alpha of the rectangle.
+		 * @param	overwrite	If the color/alpha provided should replace the existing data rather than blend.
+		 */
+		public static function tri(x:Number, y:Number, width:Number, height:Number, rotation:Number, color:uint = 0xFFFFFF, alpha:Number = 1, overwrite:Boolean = false):void
+		{
+			_graphics.clear();
+			
+			var vertices:Vector.<Number> = new Vector.<Number>();
+			vertices[0] = x + Math.cos((30  + rotation) / 180 * Math.PI) * width / 2;
+			vertices[1] = y + Math.sin((30  + rotation) / 180 * Math.PI) * height / 2;
+			vertices[2] = x + Math.cos((150 + rotation) / 180 * Math.PI) * width / 2;
+			vertices[3] = y + Math.sin((150 + rotation) / 180 * Math.PI) * height / 2;
+			vertices[4] = x + Math.cos((270 + rotation) / 180 * Math.PI) * width / 2;
+			vertices[5] = y + Math.sin((270 + rotation) / 180 * Math.PI) * height / 2;
+			
+			_graphics.beginFill(color, alpha);
+			_graphics.drawTriangles(vertices);
+			_target.draw(FP.sprite, null, null, blend);
+		}
+		
+		/*public static function tri(x:int, y:int, x1:int, y1:int, x2:int, y2:int, x3:int, y3:int,
+						color:uint = 0xFFFFFF, alpha:Number = 1):void
+		{
+			_graphics.clear();
+			
+			var vertices:Vector.<Number> = new Vector.<Number>();
+			vertices[0] = x + x1;
+			vertices[1] = y + y1;
+			vertices[2] = x + x2;
+			vertices[3] = y + y2;
+			vertices[4] = x + x3;
+			vertices[5] = y + y3;
+			
+			_graphics.beginFill(color, alpha);
+			_graphics.drawTriangles(vertices);
+			_target.draw(FP.sprite, null, null, blend);
+		}*/
+		
+		/**
 		 * Draws a filled rectangle.
 		 * @param	x			X position of the rectangle.
 		 * @param	y			Y position of the rectangle.

@@ -1,11 +1,21 @@
 package  
 {
 	import flash.display.GraphicsPath;
+	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Graphiclist;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.World;
 	
 	public class Level extends World
 	{
+		[Embed(source = "images/path.png")]
+		private var PATH:Class;
+		
+		private var pathImage:Image = new Image(PATH);
+		
+		private var graphicsEntity:Entity;
+		
 		// The array of objects to create the room
 		private var room:Array = new Array(
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -49,7 +59,7 @@ package
 				switch (room[i])
 				{
 					case -1:
-						add(new Start(int(i % 20) * 32, int(i / 20) * 32));
+						//add(new Start(int(i % 20) * 32, int(i / 20) * 32));
 						add(new Path(int(i % 20) * 32, int(i / 20) * 32));
 						//add(new Enemy(int(i % 20) * 32, int(i / 20) * 32));
 						break;
@@ -70,6 +80,9 @@ package
 						break;
 				}
 			}
+			
+			graphicsEntity = new Entity(0, 0, new Graphiclist(pathImage));
+			add(graphicsEntity);
 		}
 		
 		override public function update():void

@@ -2,10 +2,17 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Graphiclist;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Draw;
 	
 	public class Tower extends Entity
 	{
+		[Embed(source = "images/tower1.png")]
+		private const TOWER1:Class;
+		
+		private var tower1Image:Image = new Image(TOWER1);
+		
 		// TODO: Change these
 		public static const SPIKE:int = 1;
 		public static const TYPE2:int = 2;
@@ -20,12 +27,23 @@ package
 			
 			type = "tower";
 			
+			if (towerType == 1)
+				HUD.money -= HUD.tower1price;
+			else if (towerType == 2)
+				HUD.money -= HUD.tower2price;
+			else if (towerType == 3)
+				HUD.money -= HUD.tower3price;
+			
 			// Set the type of the tower here
 			// Instead of having classes for each type, there is one class,
 			// and we just have a variable that changes what this object does
 			this.towerType = towerType;
 			
 			layer = -2;
+			
+			tower1Image.centerOO();
+			
+			graphic = new Graphiclist(tower1Image);
 		}
 		
 		override public function added():void
@@ -52,10 +70,12 @@ package
 		
 		override public function render():void
 		{
+			super.render();
+			
 			switch (towerType)
 			{
 				case SPIKE:
-					Draw.circlePlus(x, y, 16, 0xFFFFFF);
+					//Draw.circlePlus(x, y, 16, 0xFFFFFF);
 					break;
 				case TYPE2:
 					Draw.circlePlus(x, y, 16, 0xFF831A);
@@ -70,6 +90,10 @@ package
 		{
 			// Perform the spike update
 			setHitbox(32, 32, 16, 16);
+			
+			tower1Image.visible = true;
+			//tower2Image.visible = false;
+			//tower3Image.visible = false;
 		}
 		
 		public function shoot():void

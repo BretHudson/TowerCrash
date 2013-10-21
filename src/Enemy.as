@@ -24,7 +24,7 @@ package
 		public function Enemy(X:int, Y:int) 
 		{
 			super(X, Y);
-			setHitbox(32, 32);
+			setHitbox(32, 32, 16, 16);
 			type = "enemy";
 			layer = -1;
 		}

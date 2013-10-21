@@ -12,11 +12,18 @@ package
 	{
 		// The font used throughout the game
 		// http://www.fontspace.com/nal/savantism
-		[Embed(source = "Savantism.otf", embedAsCFF = "false", fontFamily = 'Savatism')]
+		[Embed(source = "fonts/Savantism.otf", embedAsCFF = "false", fontFamily = 'Savatism')]
 		public static const SAVANTISM:Class;
 		
+		// Fonts used for answering questions
+		// http://www.dafont.com/marcelle.font
+		[Embed(source = "fonts/MARCS___.ttf", embedAsCFF = "false", fontFamily = 'MarcsUnder')]
+		public static const MARCS:Class;
+		[Embed(source = "fonts/Marcsc___.ttf", embedAsCFF = "false", fontFamily = 'Marcs')]
+		public static const MARCSUNDER:Class;
+		
 		// Create the gradient
-		[Embed(source = 'gradient.png')]
+		[Embed(source = 'images/gradient.png')]
 		public static const GRADIENT:Class;
 		
 		public static var sizerect:Rectangle = new Rectangle(0, 0, 640, 480);

@@ -2,6 +2,8 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Graphiclist;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Draw;
 	import net.flashpunk.utils.Input;
 	
@@ -9,7 +11,13 @@ package
 	
 	public class Player extends Entity
 	{
-		// TODO: Add max-y value for player cursor
+		// Y distance from bottom for placement
+		private var ydist:int = 195;
+		
+		[Embed(source = "images/tower1radius.png")]
+		private const TOWER1RADIUS:Class;
+		
+		private const tower1radius:Image = new Image(TOWER1RADIUS);
 		
 		public function Player() 
 		{
@@ -18,6 +26,9 @@ package
 			type = "player";
 			name = "player";
 			layer = -10;
+			
+			tower1radius.centerOO();
+			graphic = new Graphiclist(tower1radius);
 		}
 		
 		//Tower vars to handle placement
@@ -41,16 +52,44 @@ package
 			{
 				tower = new Tower(x, y, HUD.pressedSelection);
 				FP.world.add(tower);
+				HUD.pressedSelection = 0;
+			}
+			
+			tower1radius.visible = false;
+			
+			switch (HUD.pressedSelection)
+			{
+				case 1:
+					tower1radius.visible = true;
+					break;
+				case 2:
+					tower1radius.visible = true;
+					break;
+				case 3:
+					tower1radius.visible = true;
+					break;
 			}
 		}
 		
 		override public function render():void
 		{
+			// Change the position to the mouse position
+			x = Input.mouseX;
+			y = Input.mouseY;
+			
+			// Draw graphic
+			super.render();
+			
 			// Change the color based off of if the player can place towers or not
-			if (canPlace)
-				Draw.circlePlus(x, y, 16, 0x78FF33);
+			if (HUD.pressedSelection > 0)
+			{
+				if ((canPlace) && (y <= FP.height - ydist))
+					Draw.circlePlus(x, y, 16, 0x78FF33, 0.5);
+				else
+					Draw.circlePlus(x, y, 16, 0xFF0000, 0.5);
+			}
 			else
-				Draw.circlePlus(x, y, 16, 0xFF0000);
+				Draw.circlePlus(x, y, 16, 0xFFFFFF, 0.5);
 		}
 	}
 }

@@ -17,11 +17,6 @@ package
 			type = "base";
 			setHitbox(12, 12, 6, 6);
 		}
-		
-		override public function render() : void
-		{
-			Draw.circlePlus(x, y, 8, 0x000000);
-		}
 	}
 	
 }

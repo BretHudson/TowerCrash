@@ -6,6 +6,14 @@ package
 	
 	public class HUD
 	{
+		// Stats
+		public static var tower1price:int = 100;
+		public static var tower2price:int = 250;
+		public static var tower3price:int = 500;
+		
+		public static var money:int = 100;
+		
+		// HUD Info
 		public static var x:Number = 0;
 		public static var y:Number = 0;
 		
@@ -22,11 +30,11 @@ package
 		public static function update():void
 		{
 			selection = 0;
-			if (mouseOver(25, FP.height - 175 + 25, 125, 125))
+			if ((mouseOver(25, FP.height - 175 + 25, 125, 125)) && (money >= tower1price))
 				selection = 1;
-			else if (mouseOver(175, FP.height - 175 + 25, 125, 125))
+			else if ((mouseOver(175, FP.height - 175 + 25, 125, 125)) && (money >= tower2price))
 				selection = 2;
-			else if (mouseOver(325, FP.height - 175 + 25, 125, 125))
+			else if ((mouseOver(325, FP.height - 175 + 25, 125, 125)) && (money >= tower3price))
 				selection = 3;
 			if ((Input.mousePressed) && (selection > 0))
 				pressedSelection = selection;
@@ -54,20 +62,28 @@ package
 				Draw.rect(x + 25, y + FP.height - 175 + 25, 125, 125, 0xFFFFFF);
 			else if (selection == 1)
 				Draw.rect(x + 25, y + FP.height - 175 + 25, 125, 125, 0xBBBBBB);
-			else
+			else if (money >= tower1price)
 				Draw.rect(x + 25, y + FP.height - 175 + 25, 125, 125, 0x888888);
+			else
+				Draw.rect(x + 25, y + FP.height - 175 + 25, 125, 125, 0x333333);
+			
 			if (pressedSelection == 2)
 				Draw.rect(x + 175, y + FP.height - 175 + 25, 125, 125, 0xFFFFFF);
 			else if (selection == 2)
 				Draw.rect(x + 175, y + FP.height - 175 + 25, 125, 125, 0xBBBBBB);
-			else
+			else if (money >= tower2price)
 				Draw.rect(x + 175, y + FP.height - 175 + 25, 125, 125, 0x888888);
+			else
+				Draw.rect(x + 175, y + FP.height - 175 + 25, 125, 125, 0x333333);
+			
 			if (pressedSelection == 3)
 				Draw.rect(x + 325, y + FP.height - 175 + 25, 125, 125, 0xFFFFFF);
 			else if (selection == 3)
 				Draw.rect(x + 325, y + FP.height - 175 + 25, 125, 125, 0xBBBBBB);
-			else
+			else if (money >= tower3price)
 				Draw.rect(x + 325, y + FP.height - 175 + 25, 125, 125, 0x888888);
+			else
+				Draw.rect(x + 325, y + FP.height - 175 + 25, 125, 125, 0x333333);
 		}
 		
 		// Checks to see if the mouse is within a certain area of the screen

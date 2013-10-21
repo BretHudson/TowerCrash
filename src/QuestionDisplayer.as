@@ -13,8 +13,15 @@ package
 	{
 		// A variable to hold the alpha value
 		public var alpha:Number = 0;
+		public var textAlpha:Number = 0;
+		
+		public var rewardText:Text = new Text(" 200 Points", FP.width / 2, 65);
+		public var rewardUnderline:Text = new Text("              L", FP.width / 2, 115);
 		
 		public var yOffset:Number = 120;
+		
+		// How much money is given to the player on correct answer
+		private var reward:int = 0;
 		
 		// What the current question is
 		// Set to -1 if there is no question
@@ -45,7 +52,7 @@ package
 			layer = -100;
 			
 			// Set the object's graphic to the question/answers text
-			graphic = new Graphiclist(question, answer1, answer2, answer3, answer4);
+			graphic = new Graphiclist(question, answer1, answer2, answer3, answer4, rewardText, rewardUnderline);
 			
 			// Set the x/y coordinates for each Text object
 			question.x = 50;
@@ -79,6 +86,16 @@ package
 			//question.font = 'Savatism';
 			
 			generateQuestion(Q);
+			
+			reward = (Q + 1) % 5;
+			reward *= 100;
+			
+			rewardText.font = "Marcs";
+			rewardUnderline.font = "MarcsUnder";
+			rewardText.size = 72;
+			rewardUnderline.size = 50;
+			rewardText.centerOO();
+			rewardUnderline.centerOO();
 		}
 		
 		override public function added():void
@@ -90,6 +107,7 @@ package
 		override public function update():void
 		{
 			question.alpha = answer1.alpha = answer2.alpha = answer3.alpha = answer4.alpha = alpha;
+			rewardText.alpha = rewardUnderline.alpha = textAlpha;
 			answer1.centerOO();
 			answer2.centerOO();
 			answer3.centerOO();
@@ -108,6 +126,9 @@ package
 			
 			if ((selAnswer > -1) && (Input.mousePressed))
 				checkAnswer();
+			
+			// TODO: Remove log in final version
+			FP.console.log(selAnswer == curAnswer);
 		}
 		
 		override public function render():void
@@ -151,6 +172,7 @@ package
 			// Grab the text variables from the Questions class
 			question.text = Questions.questions[curQuestion];
 			var j:int = Math.random() * 4 + 4;
+			curAnswer = j % 4;
 			var k:Number = Math.round(Math.random() * 2 - 1);
 			while (k == 0)
 			{
@@ -183,17 +205,34 @@ package
 		
 		public function checkAnswer():void
 		{
-			trace((selAnswer == curAnswer));
+			trace(HUD.money);
+			if (selAnswer == curAnswer)
+				HUD.money += reward;
+			trace(HUD.money);
 			
 			var alphaTween:VarTween = new VarTween();
 			alphaTween.tween(this, "alpha", 0, 0.6, Ease.backIn);
 			alphaTween.complete = playerEnable;
 			addTween(alphaTween, true);
 			
+			var alphaTween2:VarTween = new VarTween();
+			alphaTween2.tween(this, "textAlpha", 1, 0.6, Ease.backIn);
+			alphaTween2.complete = fadeOutText;
+			addTween(alphaTween2, true);
+			
 			// Slide the box up
 			var yTween:VarTween = new VarTween();
 			yTween.tween(this, "y", yOffset, 0.7, Ease.backIn);
 			addTween(yTween, true);
+			
+			FP.world.add(new Start(0, 192));
+		}
+		
+		public function fadeOutText():void
+		{
+			var alphaTween:VarTween = new VarTween();
+			alphaTween.tween(this, "textAlpha", 0, 0.6, Ease.backIn);
+			addTween(alphaTween, true);
 		}
 		
 		// Checks to see if the mouse is within a certain area of the screen
