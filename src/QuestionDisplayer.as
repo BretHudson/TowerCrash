@@ -18,6 +18,8 @@ package
 		public var rewardText:Text = new Text(" 200 Points", FP.width / 2, 65);
 		public var rewardUnderline:Text = new Text("              L", FP.width / 2, 115);
 		
+		public var timerText:Text = new Text("Time left: 20 Seconds", 35, 30);
+		
 		public var yOffset:Number = 120;
 		
 		// How much money is given to the player on correct answer
@@ -47,12 +49,17 @@ package
 		
 		private var p:Player;
 		
+		private var clickable:Boolean = true;
+		
+		private var timer:Number = 20;
+		
 		public function QuestionDisplayer(Q:int) 
 		{
 			layer = -100;
+			type = "displayer";
 			
 			// Set the object's graphic to the question/answers text
-			graphic = new Graphiclist(question, answer1, answer2, answer3, answer4, rewardText, rewardUnderline);
+			graphic = new Graphiclist(question, answer1, answer2, answer3, answer4, rewardText, rewardUnderline, timerText);
 			
 			// Set the x/y coordinates for each Text object
 			question.x = 50;
@@ -87,7 +94,7 @@ package
 			
 			generateQuestion(Q);
 			
-			reward = (Q + 1) % 5;
+			reward = (Q) % 5 + 1;
 			reward *= 100;
 			
 			rewardText.font = "Marcs";
@@ -105,8 +112,8 @@ package
 		}
 		
 		override public function update():void
-		{
-			question.alpha = answer1.alpha = answer2.alpha = answer3.alpha = answer4.alpha = alpha;
+		{			
+			timerText.alpha = question.alpha = answer1.alpha = answer2.alpha = answer3.alpha = answer4.alpha = alpha;
 			rewardText.alpha = rewardUnderline.alpha = textAlpha;
 			answer1.centerOO();
 			answer2.centerOO();
@@ -123,6 +130,20 @@ package
 				selAnswer = 3;
 			else
 				selAnswer = -1;
+				
+			
+			timer -= FP.elapsed;
+			timerText.text = "Time left: " + String(int(timer)) + " Seconds";
+			if (timer >= 10)
+				timerText.color = 0x000000;
+			else
+				timerText.color = 0xBB0000;
+			if (timer <= 0)
+			{
+				timer = 0;
+				selAnswer = -1;
+				checkAnswer();
+			}
 			
 			if ((selAnswer > -1) && (Input.mousePressed))
 				checkAnswer();
@@ -201,31 +222,40 @@ package
 		{
 			p = FP.world.getInstance("player");
 			p.questionUp = false;
+			FP.world.getInstance("startbutton").clicked = false;
 		}
 		
 		public function checkAnswer():void
 		{
-			trace(HUD.money);
-			if (selAnswer == curAnswer)
-				HUD.money += reward;
-			trace(HUD.money);
-			
-			var alphaTween:VarTween = new VarTween();
-			alphaTween.tween(this, "alpha", 0, 0.6, Ease.backIn);
-			alphaTween.complete = playerEnable;
-			addTween(alphaTween, true);
-			
-			var alphaTween2:VarTween = new VarTween();
-			alphaTween2.tween(this, "textAlpha", 1, 0.6, Ease.backIn);
-			alphaTween2.complete = fadeOutText;
-			addTween(alphaTween2, true);
-			
-			// Slide the box up
-			var yTween:VarTween = new VarTween();
-			yTween.tween(this, "y", yOffset, 0.7, Ease.backIn);
-			addTween(yTween, true);
-			
-			FP.world.add(new Start(0, 192));
+			if (clickable)
+			{
+				if (selAnswer == curAnswer)
+				{
+					HUD.money += reward;
+					rewardText.text = " " + String(reward) + " Points";
+				}
+				else
+				{
+					rewardText.text = "  No Points";
+				}
+				
+				var alphaTween:VarTween = new VarTween();
+				alphaTween.tween(this, "alpha", 0, 0.6, Ease.backIn);
+				alphaTween.complete = playerEnable;
+				addTween(alphaTween, true);
+				
+				var alphaTween2:VarTween = new VarTween();
+				alphaTween2.tween(this, "textAlpha", 1, 0.6, Ease.backIn);
+				alphaTween2.complete = fadeOutText;
+				addTween(alphaTween2, true);
+				
+				// Slide the box down
+				var yTween:VarTween = new VarTween();
+				yTween.tween(this, "y", yOffset, 0.7, Ease.backIn);
+				addTween(yTween, true);
+				
+				clickable = false;
+			}
 		}
 		
 		public function fadeOutText():void
@@ -233,6 +263,12 @@ package
 			var alphaTween:VarTween = new VarTween();
 			alphaTween.tween(this, "textAlpha", 0, 0.6, Ease.backIn);
 			addTween(alphaTween, true);
+			alphaTween.complete = destroy;
+		}
+		
+		public function destroy():void
+		{
+			FP.world.remove(this);
 		}
 		
 		// Checks to see if the mouse is within a certain area of the screen

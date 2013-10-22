@@ -45,9 +45,11 @@ package
 			// Create and add the Player to the room
 			add(p = new Player());
 			
-			add(q = new QuestionDisplayer(1));
+			add(new StartButton());
 			
-			//add(new QuestionChooser());
+			//add(q = new QuestionDisplayer(1));
+			
+			add(new QuestionChooser());
 		}
 		
 		override public function begin():void

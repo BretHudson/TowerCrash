@@ -14,7 +14,10 @@ package
 		public static var tower2price:int = 250;
 		public static var tower3price:int = 500;
 		
-		public static var money:int = 500;
+		public static var money:int = 100;
+		
+		public static var round:int = 0;
+		public static var violated:Boolean = true;
 		
 		// HUD Info
 		public static var x:Number = 0;
@@ -108,7 +111,7 @@ package
 		{
 			// Draw the rectangle background for the HUD
 			// TODO: Make the background red if an enemy gets through
-			Draw.rect(x, y + FP.height - 175, FP.width, 175, 0x3030CC);
+			Draw.rect(x, y + FP.height - 175, FP.width, 175, (violated) ? 0xCC3030 : 0x3030CC);
 			
 			
 			if (pressedSelection == 1)

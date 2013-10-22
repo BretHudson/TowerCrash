@@ -31,6 +31,12 @@ package
 		
 		override public function update():void
 		{
+			if (x > FP.width + width / 2)
+			{
+				HUD.violated = true;
+				FP.world.remove(this);
+			}
+			
 			switch (dir)
 			{
 				case LEFT:

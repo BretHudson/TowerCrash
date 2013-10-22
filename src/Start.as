@@ -19,7 +19,7 @@ package
 		
 		override public function update():void
 		{
-			GenerateEnemies(2,5);
+			GenerateEnemies(2 - (0.2 * int(HUD.round / 5)), 2 + HUD.round * 3);
 		}
 		
 		override public function render():void
@@ -35,6 +35,7 @@ package
 			//Check if create is true
 			if (create)
 			{
+				FP.world.getInstance("startbutton").roundGoing = true;
 				//Check for each assigned seconds of elapsed time
 				if (counter > timeElapsed)
 				{
@@ -42,6 +43,8 @@ package
 					if (start >= numberOfEnemy1)
 					{
 						create = false;
+						FP.world.getInstance("startbutton").roundGoing = false;
+						FP.world.remove(this);
 					}
 					//Else just add a new enemy and increase the start counter to avoid infinite enemies
 					else if (numberOfEnemy1 > 0)
