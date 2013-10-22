@@ -17,7 +17,11 @@ package
 		[Embed(source = "images/tower1radius.png")]
 		private const TOWER1RADIUS:Class;
 		
+		[Embed(source = "images/tower2radius.png")]
+		private const TOWER2RADIUS:Class;
+		
 		private const tower1radius:Image = new Image(TOWER1RADIUS);
+		private const tower2radius:Image = new Image(TOWER2RADIUS);
 		
 		public function Player() 
 		{
@@ -28,7 +32,8 @@ package
 			layer = -10;
 			
 			tower1radius.centerOO();
-			graphic = new Graphiclist(tower1radius);
+			tower2radius.centerOO();
+			graphic = new Graphiclist(tower1radius , tower2radius);
 		}
 		
 		//Tower vars to handle placement
@@ -56,6 +61,7 @@ package
 			}
 			
 			tower1radius.visible = false;
+			tower2radius.visible = false;
 			
 			switch (HUD.pressedSelection)
 			{
@@ -63,7 +69,7 @@ package
 					tower1radius.visible = true;
 					break;
 				case 2:
-					tower1radius.visible = true;
+					tower2radius.visible = true;
 					break;
 				case 3:
 					tower1radius.visible = true;

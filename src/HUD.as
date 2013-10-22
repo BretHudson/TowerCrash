@@ -11,7 +11,7 @@ package
 		public static var tower2price:int = 250;
 		public static var tower3price:int = 500;
 		
-		public static var money:int = 100;
+		public static var money:int = 500;
 		
 		// HUD Info
 		public static var x:Number = 0;

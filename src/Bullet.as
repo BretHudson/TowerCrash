@@ -2,10 +2,21 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.utils.Draw;
+	import net.flashpunk.utils.Input;
+	import net.flashpunk.utils.Key;
 	
 	public class Bullet extends Entity
 	{
+		//Image for the turret bullet
+		[Embed(source = "images/turretbullet.png")]
+		private const TURRETBULLET:Class;
+		
+		//Variables for the turret bullet
+		public static var direction:String;
+		public static var canAdd:Boolean = true;
+		
 		private var speed:int = 6;
 		private var maxRadius:int = 96;
 		private var bulletType:int = 0;
@@ -16,6 +27,10 @@ package
 			this.bulletType = bulletType;
 			if (bulletType == Tower.SPIKE)
 				setHitbox(32, 32, 16, 16);
+			
+			if (bulletType == Tower.TURRET)
+				setHitbox(32, 32, 16, 16);
+				
 		}
 		
 		override public function update():void
@@ -42,6 +57,24 @@ package
 				
 				if (width > maxRadius)
 					FP.world.remove(this);
+			}
+			
+			if (bulletType == Tower.TURRET)
+			{
+				if (canAdd)
+				{	
+					if (Input.pressed(Key.SPACE)  && Input.check(Key.RIGHT))
+					{
+						direction = "right";
+						FP.world.add(new TurretBullet(x, y , "right"));
+						
+					}
+					if (Input.pressed(Key.SPACE) && Input.check(Key.LEFT))
+					{
+						direction = "left";
+						FP.world.add(new TurretBullet(x, y , "left"));
+					}
+				}
 			}
 		}
 		

@@ -11,11 +11,15 @@ package
 		[Embed(source = "images/tower1.png")]
 		private const TOWER1:Class;
 		
+		[Embed(source = "images/tower2.png")]
+		private const TOWER2:Class;
+		
 		private var tower1Image:Image = new Image(TOWER1);
+		private var tower2Image:Image = new Image(TOWER2);
 		
 		// TODO: Change these
 		public static const SPIKE:int = 1;
-		public static const TYPE2:int = 2;
+		public static const TURRET:int = 2;
 		public static const TYPE3:int = 3;
 		
 		// Type of tower
@@ -41,9 +45,11 @@ package
 			
 			layer = -2;
 			
-			tower1Image.centerOO();
 			
-			graphic = new Graphiclist(tower1Image);
+			tower1Image.centerOO();
+			tower2Image.centerOO();
+			
+			graphic = new Graphiclist(tower1Image  , tower2Image);
 		}
 		
 		override public function added():void
@@ -59,8 +65,8 @@ package
 				case SPIKE:
 					spike();
 					break;
-				case TYPE2:
-					// Do type 2 stuff
+				case TURRET:
+					turret();
 					break;
 				case TYPE3:
 					// Do type 3 stuff
@@ -77,8 +83,8 @@ package
 				case SPIKE:
 					//Draw.circlePlus(x, y, 16, 0xFFFFFF);
 					break;
-				case TYPE2:
-					Draw.circlePlus(x, y, 16, 0xFF831A);
+				case TURRET:
+					//Draw.circlePlus(x, y, 16, 0xFF831A);
 					break;
 				case TYPE3:
 					Draw.circlePlus(x, y, 16, 0xFF240C);
@@ -92,8 +98,16 @@ package
 			setHitbox(32, 32, 16, 16);
 			
 			tower1Image.visible = true;
-			//tower2Image.visible = false;
+			tower2Image.visible = false;
 			//tower3Image.visible = false;
+		}
+		
+		private function turret():void
+		{
+			setHitbox(32, 32, 16, 16);
+			
+			tower2Image.visible = true;
+			tower1Image.visible = false;
 		}
 		
 		public function shoot():void
