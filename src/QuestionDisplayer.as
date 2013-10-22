@@ -193,18 +193,15 @@ package
 			// Grab the text variables from the Questions class
 			question.text = Questions.questions[curQuestion];
 			var j:int = Math.random() * 4 + 4;
-			curAnswer = j % 4;
-			var k:Number = Math.round(Math.random() * 2 - 1);
-			while (k == 0)
-			{
-				k = Math.round(Math.random() * 2 - 1);
-			}
+			curAnswer = 4 - j % 4;
+			if (curAnswer >= 4)
+				curAnswer -= 4;
 			answer1.text = Questions.answers[curQuestion * 4 + j % 4];
-			j += k;
+			j++;
 			answer2.text = Questions.answers[curQuestion * 4 + j % 4];
-			j += k;
+			j++;
 			answer3.text = Questions.answers[curQuestion * 4 + j % 4];
-			j += k;
+			j++;
 			answer4.text = Questions.answers[curQuestion * 4 + j % 4];
 			
 			// Fade in the box
@@ -229,6 +226,7 @@ package
 		{
 			if (clickable)
 			{
+				trace(selAnswer + " " + curAnswer);
 				if (selAnswer == curAnswer)
 				{
 					HUD.money += reward;

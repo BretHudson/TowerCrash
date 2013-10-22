@@ -4,14 +4,14 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin\TowerDefense.swf" />
+    <movie path="bin\TowerCrash.swf" />
     <movie fps="60" />
     <movie width="640" />
     <movie height="480" />
     <movie version="10" />
     <movie minorVersion="1" />
     <movie platform="Flash Player" />
-    <movie background="#FFFFFF" />
+    <movie background="#202020" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
@@ -79,7 +79,7 @@
     <hidden path="obj" />
   </hiddenPaths>
   <!-- Executed before build -->
-  <preBuildCommand />
+  <preBuildCommand>cloc-1.56.exe --not-match-f=\.svn src cloc-1.56.exe --not-match-f=\.svn src\net</preBuildCommand>
   <!-- Executed after build -->
   <postBuildCommand alwaysRun="False" />
   <!-- Other project options -->

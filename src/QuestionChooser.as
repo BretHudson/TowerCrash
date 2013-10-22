@@ -2,6 +2,8 @@ package
 {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
+	import net.flashpunk.graphics.Graphiclist;
+	import net.flashpunk.graphics.Text;
 	import net.flashpunk.tweens.misc.VarTween;
 	import net.flashpunk.utils.Draw;
 	import net.flashpunk.utils.Ease;
@@ -20,12 +22,20 @@ package
 		
 		private var choosing:Boolean = true;
 		
+		private var categoryText:Text = new Text("Category: ", 50, 65);
+		private var rewardText:Text = new Text("Reward: ", 420, 65);
+		
 		public function QuestionChooser() 
 		{
 			layer = -100;
 			y = yOffset;
 			type = "chooser";
 			HUD.violated = false;
+			
+			categoryText.size = rewardText.size = 24;
+			categoryText.color = rewardText.color = 0x000000;
+			
+			graphic = new Graphiclist(categoryText, rewardText);
 		}
 		
 		override public function added():void
@@ -35,6 +45,9 @@ package
 		
 		override public function update():void
 		{
+			categoryText.text = "Category: ";
+			rewardText.text = "Reward: ";
+			
 			if (choosing)
 			{
 				selQuestion = -1;
@@ -100,6 +113,46 @@ package
 					selQuestion = 24;
 			}
 			
+			if (selQuestion >= 0)
+			{
+				switch (int(selQuestion / 5))
+				{
+					case 0:
+						categoryText.text += "Types of Play";
+						break;
+					case 1:
+						categoryText.text += "Patterns of Play";
+						break;
+					case 2:
+						categoryText.text += "Play Personality";
+						break;
+					case 3:
+						categoryText.text += "The Triune Brain";
+						break;
+					case 4:
+						categoryText.text += "Miscellaneous";
+						break;
+				}
+				switch (selQuestion % 5)
+				{
+					case 0:
+						rewardText.text += "100";
+						break;
+					case 1:
+						rewardText.text += "200";
+						break;
+					case 2:
+						rewardText.text += "300";
+						break;
+					case 3:
+						rewardText.text += "400";
+						break;
+					case 4:
+						rewardText.text += "500";
+						break;
+				}
+			}
+			
 			if ((Input.mousePressed) && (selQuestion >= 0))
 			{
 				choosing = false;
@@ -149,6 +202,8 @@ package
 			if (Questions.selected[22] == 0) Draw.rect(x + 45 + 114 * 4, y + 148 + 58 * 2, 96, 50, (selQuestion == 22) ? 0xFF3399 : 0xFF0066, alpha, false);
 			if (Questions.selected[23] == 0) Draw.rect(x + 45 + 114 * 4, y + 148 + 58 * 3, 96, 50, (selQuestion == 23) ? 0xFF3399 : 0xFF0066, alpha, false);
 			if (Questions.selected[24] == 0) Draw.rect(x + 45 + 114 * 4, y + 148 + 58 * 4, 96, 50, (selQuestion == 24) ? 0xFF3399 : 0xFF0066, alpha, false);
+			
+			super.render();
 		}
 		
 		public function fadeIn():void

@@ -19,7 +19,7 @@ package
 		{
 			super(X + 16, Y + 16);
 			speed = 2;
-			health = 1;
+			health = 1 + int(HUD.round / 3);
 			bluetri.centerOO();
 			orangetri.centerOO();
 			graphic = new Graphiclist(orangetri, bluetri);

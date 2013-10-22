@@ -10,11 +10,11 @@ package
 	public class HUD
 	{
 		// Stats
-		public static var tower1price:int = 100;
-		public static var tower2price:int = 250;
-		public static var tower3price:int = 500;
+		public static var tower1price:int = 200;
+		public static var tower2price:int = 400;
+		public static var tower3price:int = 800;
 		
-		public static var money:int = 100;
+		public static var money:int = 200;
 		
 		public static var round:int = 0;
 		public static var violated:Boolean = true;
