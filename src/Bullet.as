@@ -1,5 +1,6 @@
 package  
 {
+	import flash.display.DisplayObject;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
@@ -16,6 +17,9 @@ package
 		//Variables for the turret bullet
 		public static var direction:String;
 		public static var canAdd:Boolean = true;
+		
+		//Variables for the thrower machine
+		public var counter:int = 0;
 		
 		private var speed:int = 6;
 		private var maxRadius:int = 96;
@@ -74,6 +78,25 @@ package
 						direction = "left";
 						FP.world.add(new TurretBullet(x, y , direction));
 					}
+				}
+			}
+			
+			
+			
+			if (bulletType == Tower.THROWER)
+			{
+				counter++;
+				if (counter >= 450)
+				{
+					for (var l:int = 0; l < 2; l++)
+					{
+						FP.world.add(new TurretBullet(x , y , "left"));
+					}
+					for (var r:int = 0; r < 2; r++)
+					{
+						FP.world.add(new TurretBullet(x, y, "right"));
+					}
+					counter = 0;
 				}
 			}
 		}

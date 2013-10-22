@@ -20,8 +20,12 @@ package
 		[Embed(source = "images/tower2radius.png")]
 		private const TOWER2RADIUS:Class;
 		
+		[Embed(source = "images/tower3radius.png")]
+		private const TOWER3RADIUS:Class;
+		
 		private const tower1radius:Image = new Image(TOWER1RADIUS);
 		private const tower2radius:Image = new Image(TOWER2RADIUS);
+		private const tower3radius:Image = new Image(TOWER3RADIUS);
 		
 		public function Player() 
 		{
@@ -33,7 +37,9 @@ package
 			
 			tower1radius.centerOO();
 			tower2radius.centerOO();
-			graphic = new Graphiclist(tower1radius , tower2radius);
+			tower3radius.centerOO();
+			
+			graphic = new Graphiclist(tower1radius , tower2radius, tower3radius);
 		}
 		
 		//Tower vars to handle placement
@@ -72,7 +78,7 @@ package
 					tower2radius.visible = true;
 					break;
 				case 3:
-					tower1radius.visible = true;
+					tower3radius.visible = true;
 					break;
 			}
 		}
