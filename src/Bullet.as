@@ -66,13 +66,13 @@ package
 					if (Input.pressed(Key.SPACE)  && Input.check(Key.RIGHT))
 					{
 						direction = "right";
-						FP.world.add(new TurretBullet(x, y , "right"));
+						FP.world.add(new TurretBullet(x, y , direction));
 						
 					}
 					if (Input.pressed(Key.SPACE) && Input.check(Key.LEFT))
 					{
 						direction = "left";
-						FP.world.add(new TurretBullet(x, y , "left"));
+						FP.world.add(new TurretBullet(x, y , direction));
 					}
 				}
 			}
