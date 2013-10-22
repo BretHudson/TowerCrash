@@ -18,6 +18,8 @@ package
 		
 		public var bulletDirection:String;
 		
+		private var speed:int = 250;
+		
 		public function TurretBullet (x:Number , y:Number , direction:String)
 		{
 			super(x, y);
@@ -36,21 +38,21 @@ package
 		{	
 			if (bulletDirection == "left")
 			{
-				x -= 100 * FP.elapsed;
+				x -= speed * FP.elapsed;
 			}
 			else if (bulletDirection == "right")
 			{
-				x += 100 * FP.elapsed;
+				x += speed * FP.elapsed;
 			}
 			
 			if (Input.check(Key.UP))
 			{
-				y -= 100 * FP.elapsed;
+				y -= speed * FP.elapsed;
 			}
 			
 			if (Input.check(Key.DOWN))
 			{
-				y += 100 * FP.elapsed;
+				y += speed * FP.elapsed;
 			}
 			
 			if (collide("enemy" , x, y))

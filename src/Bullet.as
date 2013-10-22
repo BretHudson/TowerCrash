@@ -81,8 +81,6 @@ package
 				}
 			}
 			
-			
-			
 			if (bulletType == Tower.THROWER)
 			{
 				counter++;

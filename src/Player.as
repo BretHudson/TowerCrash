@@ -39,7 +39,7 @@ package
 			tower2radius.centerOO();
 			tower3radius.centerOO();
 			
-			graphic = new Graphiclist(tower1radius , tower2radius, tower3radius);
+			graphic = new Graphiclist(tower1radius, tower2radius, tower3radius);
 		}
 		
 		//Tower vars to handle placement
@@ -68,6 +68,7 @@ package
 			
 			tower1radius.visible = false;
 			tower2radius.visible = false;
+			tower3radius.visible = false;
 			
 			switch (HUD.pressedSelection)
 			{

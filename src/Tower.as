@@ -79,24 +79,6 @@ package
 			}
 		}
 		
-		override public function render():void
-		{
-			super.render();
-			
-			switch (towerType)
-			{
-				case SPIKE:
-					//Draw.circlePlus(x, y, 16, 0xFFFFFF);
-					break;
-				case TURRET:
-					//Draw.circlePlus(x, y, 16, 0xFF831A);
-					break;
-				case THROWER:
-					//Draw.circlePlus(x, y, 16, 0xFF240C);
-					break;
-			}
-		}
-		
 		private function spike():void
 		{
 			// Perform the spike update
@@ -111,8 +93,8 @@ package
 		{
 			setHitbox(32, 32, 16, 16);
 			
-			tower2Image.visible = true;
 			tower1Image.visible = false;
+			tower2Image.visible = true;
 			tower3Image.visible = false;
 		}
 		
@@ -120,9 +102,9 @@ package
 		{
 			setHitbox(32, 32, 16, 16);
 			
-			tower3Image.visible = true;
-			tower2Image.visible = false;
 			tower1Image.visible = false;
+			tower2Image.visible = false;
+			tower3Image.visible = true;
 		}
 		
 		public function shoot():void
